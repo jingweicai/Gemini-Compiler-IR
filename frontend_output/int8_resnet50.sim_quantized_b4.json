@@ -1,0 +1,7407 @@
+{
+   "src_quantize_1_1": {
+      "layer_index": 0,
+      "name": "src_quantize_1_1",
+      "operation": "quantize",
+      "device": "npu",
+      "input_dtype": [
+         "float16"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            3,
+            224,
+            224
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            3,
+            224,
+            224
+         ]
+      ],
+      "file_list": {
+         "input_activation1": "src_quantize_1_1_input_activation1.npy",
+         "output_activation1": "src_quantize_1_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "input1"
+      ],
+      "next_layer": [
+         "Conv_0"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "input_shape": [
+               [
+                  4,
+                  3,
+                  224,
+                  224
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  3,
+                  224,
+                  224
+               ]
+            ],
+            "requan_scale_a": 1,
+            "requan_zp_a": 0
+         },
+         "post_cal": {
+            "mul_k": 29.057056427001953,
+            "sum_b": 6.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  3,
+                  224,
+                  224
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  3,
+                  224,
+                  224
+               ]
+            ]
+         }
+      },
+      "ori_name": "src_quantize_1",
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_0": {
+      "layer_index": 1,
+      "name": "Conv_0",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            3,
+            224,
+            224
+         ],
+         [
+            64,
+            3,
+            7,
+            7
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            112,
+            112
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.034415047615766525,
+         "input_zero_point1": -6.0,
+         "output_scale": 43.62298146446928,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "src_quantize_1_1",
+         "constant_497"
+      ],
+      "next_layer": [
+         "MaxPool_2_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_0_input_activation1.npy",
+         "input_activation2": "Conv_0_input_activation2.npy",
+         "output_activation1": "Conv_0_output_activation1.npy",
+         "k": "Conv_0_k.npy",
+         "b": "Conv_0_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         7,
+         7
+      ],
+      "padding": [
+         3,
+         3,
+         3,
+         3
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "Relu_1"
+   },
+   "MaxPool_2_1": {
+      "layer_index": 2,
+      "name": "MaxPool_2_1",
+      "operation": "max_pool2d",
+      "device": "npu",
+      "pool_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ceil_mode": 0,
+      "file_list": {
+         "input_activation1": "MaxPool_2_1_input_activation1.npy",
+         "output_activation1": "MaxPool_2_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_0"
+      ],
+      "next_layer": [
+         "Conv_3",
+         "Conv_8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            112,
+            112
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "input_dtype": [
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.022923696786165237,
+            "requan_zp_a": 2.9342331886291504,
+            "input_shape": [
+               [
+                  4,
+                  64,
+                  112,
+                  112
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  64,
+                  112,
+                  112
+               ]
+            ]
+         },
+         "compare_group": {
+            "cmp_mode": "cumulative",
+            "cmp_max_en": "max",
+            "cmp_dim": "kernel",
+            "input_shape": [
+               [
+                  4,
+                  64,
+                  112,
+                  112
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  64,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 43.62298146446928,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  64,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  64,
+                  56,
+                  56
+               ]
+            ]
+         }
+      },
+      "ori_name": "MaxPool_2",
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_3": {
+      "layer_index": 3,
+      "name": "Conv_3",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            64,
+            64,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.022923696786165237,
+         "input_zero_point1": 128.0,
+         "output_scale": 120.94400275377089,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "MaxPool_2_1",
+         "constant_500"
+      ],
+      "next_layer": [
+         "Conv_5"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_3_input_activation1.npy",
+         "input_activation2": "Conv_3_input_activation2.npy",
+         "output_activation1": "Conv_3_output_activation1.npy",
+         "k": "Conv_3_k.npy",
+         "b": "Conv_3_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_4"
+   },
+   "Conv_8": {
+      "layer_index": 4,
+      "name": "Conv_8",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            256,
+            64,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.022923696786165237,
+         "input_zero_point1": 128.0,
+         "output_scale": 51.98660921265409,
+         "output_zero_point": 18.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "MaxPool_2_1",
+         "constant_509"
+      ],
+      "next_layer": [
+         "Add_9_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_8_input_activation1.npy",
+         "input_activation2": "Conv_8_input_activation2.npy",
+         "output_activation1": "Conv_8_output_activation1.npy",
+         "k": "Conv_8_k.npy",
+         "b": "Conv_8_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_4"
+   },
+   "Conv_5": {
+      "layer_index": 5,
+      "name": "Conv_5",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            64,
+            64,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.008268289268016815,
+         "input_zero_point1": 128.0,
+         "output_scale": 145.47935782924043,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_3",
+         "constant_503"
+      ],
+      "next_layer": [
+         "Conv_7"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_5_input_activation1.npy",
+         "input_activation2": "Conv_5_input_activation2.npy",
+         "output_activation1": "Conv_5_output_activation1.npy",
+         "k": "Conv_5_k.npy",
+         "b": "Conv_5_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_6"
+   },
+   "Conv_7": {
+      "layer_index": 6,
+      "name": "Conv_7",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            256,
+            64,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.006873827427625656,
+         "input_zero_point1": 128.0,
+         "output_scale": 96.55125064832579,
+         "output_zero_point": 2.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_5",
+         "constant_506"
+      ],
+      "next_layer": [
+         "Add_9_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_7_input_activation1.npy",
+         "input_activation2": "Conv_7_input_activation2.npy",
+         "output_activation1": "Conv_7_output_activation1.npy",
+         "k": "Conv_7_k.npy",
+         "b": "Conv_7_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_3"
+   },
+   "Add_9_1": {
+      "layer_index": 7,
+      "name": "Add_9_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_9_1_input_activation1.npy",
+         "input_activation2": "Add_9_1_input_activation2.npy",
+         "output_activation1": "Add_9_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_7",
+         "Conv_8"
+      ],
+      "next_layer": [
+         "Conv_11",
+         "Add_16_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.010357193648815155,
+            "requan_zp_a": -0.02071438729763031,
+            "requan_scale_b": 0.019235722720623016,
+            "requan_zp_b": -0.3462430089712143,
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 105.46187387950509,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_10",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_11": {
+      "layer_index": 8,
+      "name": "Conv_11",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            64,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.009482099674642086,
+         "input_zero_point1": 128.0,
+         "output_scale": 217.3765340472448,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_9_1",
+         "constant_512"
+      ],
+      "next_layer": [
+         "Conv_13"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_11_input_activation1.npy",
+         "input_activation2": "Conv_11_input_activation2.npy",
+         "output_activation1": "Conv_11_output_activation1.npy",
+         "k": "Conv_11_k.npy",
+         "b": "Conv_11_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_12"
+   },
+   "Conv_13": {
+      "layer_index": 9,
+      "name": "Conv_13",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            64,
+            64,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.004600312560796738,
+         "input_zero_point1": 128.0,
+         "output_scale": 200.11799811146813,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_11",
+         "constant_515"
+      ],
+      "next_layer": [
+         "Conv_15"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_13_input_activation1.npy",
+         "input_activation2": "Conv_13_input_activation2.npy",
+         "output_activation1": "Conv_13_output_activation1.npy",
+         "k": "Conv_13_k.npy",
+         "b": "Conv_13_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_14"
+   },
+   "Conv_15": {
+      "layer_index": 10,
+      "name": "Conv_15",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            256,
+            64,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.004997051786631346,
+         "input_zero_point1": 128.0,
+         "output_scale": 124.68110412272314,
+         "output_zero_point": -2.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_13",
+         "constant_518"
+      ],
+      "next_layer": [
+         "Add_16_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_15_input_activation1.npy",
+         "input_activation2": "Conv_15_input_activation2.npy",
+         "output_activation1": "Conv_15_output_activation1.npy",
+         "k": "Conv_15_k.npy",
+         "b": "Conv_15_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_7"
+   },
+   "Add_16_1": {
+      "layer_index": 11,
+      "name": "Add_16_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_16_1_input_activation1.npy",
+         "input_activation2": "Add_16_1_input_activation2.npy",
+         "output_activation1": "Add_16_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_15",
+         "Add_9_1"
+      ],
+      "next_layer": [
+         "Conv_18",
+         "Add_23_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.008020461536943913,
+            "requan_zp_a": 0.016040923073887825,
+            "requan_scale_b": 0.009482099674642086,
+            "requan_zp_b": 1.213708758354187,
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 104.08199600884309,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_17",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_18": {
+      "layer_index": 12,
+      "name": "Conv_18",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            64,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.009607809595763683,
+         "input_zero_point1": 128.0,
+         "output_scale": 234.91191124583023,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_16_1",
+         "constant_521"
+      ],
+      "next_layer": [
+         "Conv_20"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_18_input_activation1.npy",
+         "input_activation2": "Conv_18_input_activation2.npy",
+         "output_activation1": "Conv_18_output_activation1.npy",
+         "k": "Conv_18_k.npy",
+         "b": "Conv_18_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_19"
+   },
+   "Conv_20": {
+      "layer_index": 13,
+      "name": "Conv_20",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            64,
+            64,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.004256914835423231,
+         "input_zero_point1": 128.0,
+         "output_scale": 265.0996245802737,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_18",
+         "constant_524"
+      ],
+      "next_layer": [
+         "Conv_22"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_20_input_activation1.npy",
+         "input_activation2": "Conv_20_input_activation2.npy",
+         "output_activation1": "Conv_20_output_activation1.npy",
+         "k": "Conv_20_k.npy",
+         "b": "Conv_20_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_21"
+   },
+   "Conv_22": {
+      "layer_index": 14,
+      "name": "Conv_22",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            64,
+            56,
+            56
+         ],
+         [
+            256,
+            64,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0037721667904406786,
+         "input_zero_point1": 128.0,
+         "output_scale": 104.29901967402897,
+         "output_zero_point": -2.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_20",
+         "constant_527"
+      ],
+      "next_layer": [
+         "Add_23_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_22_input_activation1.npy",
+         "input_activation2": "Conv_22_input_activation2.npy",
+         "output_activation1": "Conv_22_output_activation1.npy",
+         "k": "Conv_22_k.npy",
+         "b": "Conv_22_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_10"
+   },
+   "Add_23_1": {
+      "layer_index": 15,
+      "name": "Add_23_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_23_1_input_activation1.npy",
+         "input_activation2": "Add_23_1_input_activation2.npy",
+         "output_activation1": "Add_23_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_22",
+         "Add_16_1"
+      ],
+      "next_layer": [
+         "Conv_25",
+         "Conv_30"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.009587817825376987,
+            "requan_zp_a": 0.019175635650753975,
+            "requan_scale_b": 0.009607809595763683,
+            "requan_zp_b": 1.2297996282577515,
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ],
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 104.0780109767637,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  256,
+                  56,
+                  56
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_24",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_25": {
+      "layer_index": 16,
+      "name": "Conv_25",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            128,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            56,
+            56
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.009608177468180656,
+         "input_zero_point1": 128.0,
+         "output_scale": 158.99815723619636,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_23_1",
+         "constant_530"
+      ],
+      "next_layer": [
+         "Conv_27"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_25_input_activation1.npy",
+         "input_activation2": "Conv_25_input_activation2.npy",
+         "output_activation1": "Conv_25_output_activation1.npy",
+         "k": "Conv_25_k.npy",
+         "b": "Conv_25_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_26"
+   },
+   "Conv_30": {
+      "layer_index": 17,
+      "name": "Conv_30",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            56,
+            56
+         ],
+         [
+            512,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.009608177468180656,
+         "input_zero_point1": 128.0,
+         "output_scale": 59.9480138031946,
+         "output_zero_point": -28.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_23_1",
+         "constant_539"
+      ],
+      "next_layer": [
+         "Add_31_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_30_input_activation1.npy",
+         "input_activation2": "Conv_30_input_activation2.npy",
+         "output_activation1": "Conv_30_output_activation1.npy",
+         "k": "Conv_30_k.npy",
+         "b": "Conv_30_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "fake_bn_14"
+   },
+   "Conv_27": {
+      "layer_index": 18,
+      "name": "Conv_27",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            56,
+            56
+         ],
+         [
+            128,
+            128,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.006289381068199873,
+         "input_zero_point1": 128.0,
+         "output_scale": 279.8950047517345,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_25",
+         "constant_533"
+      ],
+      "next_layer": [
+         "Conv_29"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_27_input_activation1.npy",
+         "input_activation2": "Conv_27_input_activation2.npy",
+         "output_activation1": "Conv_27_output_activation1.npy",
+         "k": "Conv_27_k.npy",
+         "b": "Conv_27_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "Relu_28"
+   },
+   "Conv_29": {
+      "layer_index": 19,
+      "name": "Conv_29",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            512,
+            128,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.003572768298909068,
+         "input_zero_point1": 128.0,
+         "output_scale": 113.99913981088368,
+         "output_zero_point": -25.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_27",
+         "constant_536"
+      ],
+      "next_layer": [
+         "Add_31_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_29_input_activation1.npy",
+         "input_activation2": "Conv_29_input_activation2.npy",
+         "output_activation1": "Conv_29_output_activation1.npy",
+         "k": "Conv_29_k.npy",
+         "b": "Conv_29_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_13"
+   },
+   "Add_31_1": {
+      "layer_index": 20,
+      "name": "Add_31_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_31_1_input_activation1.npy",
+         "input_activation2": "Add_31_1_input_activation2.npy",
+         "output_activation1": "Add_31_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_29",
+         "Conv_30"
+      ],
+      "next_layer": [
+         "Conv_33",
+         "Add_38_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.008771996013820171,
+            "requan_zp_a": 0.21929990034550428,
+            "requan_scale_b": 0.016681119799613953,
+            "requan_zp_b": 0.4670713543891907,
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 95.44250450860936,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_32",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_33": {
+      "layer_index": 21,
+      "name": "Conv_33",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            128,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.010477512143552303,
+         "input_zero_point1": 128.0,
+         "output_scale": 308.94357798518195,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_31_1",
+         "constant_542"
+      ],
+      "next_layer": [
+         "Conv_35"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_33_input_activation1.npy",
+         "input_activation2": "Conv_33_input_activation2.npy",
+         "output_activation1": "Conv_33_output_activation1.npy",
+         "k": "Conv_33_k.npy",
+         "b": "Conv_33_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_34"
+   },
+   "Conv_35": {
+      "layer_index": 22,
+      "name": "Conv_35",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            128,
+            128,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.003236836986616254,
+         "input_zero_point1": 128.0,
+         "output_scale": 169.4142873935088,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_33",
+         "constant_545"
+      ],
+      "next_layer": [
+         "Conv_37"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_35_input_activation1.npy",
+         "input_activation2": "Conv_35_input_activation2.npy",
+         "output_activation1": "Conv_35_output_activation1.npy",
+         "k": "Conv_35_k.npy",
+         "b": "Conv_35_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_36"
+   },
+   "Conv_37": {
+      "layer_index": 23,
+      "name": "Conv_37",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            512,
+            128,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.005902689881622791,
+         "input_zero_point1": 128.0,
+         "output_scale": 75.50047255393658,
+         "output_zero_point": -17.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_35",
+         "constant_548"
+      ],
+      "next_layer": [
+         "Add_38_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_37_input_activation1.npy",
+         "input_activation2": "Conv_37_input_activation2.npy",
+         "output_activation1": "Conv_37_output_activation1.npy",
+         "k": "Conv_37_k.npy",
+         "b": "Conv_37_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_17"
+   },
+   "Add_38_1": {
+      "layer_index": 24,
+      "name": "Add_38_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_38_1_input_activation1.npy",
+         "input_activation2": "Add_38_1_input_activation2.npy",
+         "output_activation1": "Add_38_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_37",
+         "Add_31_1"
+      ],
+      "next_layer": [
+         "Conv_40",
+         "Add_45_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.013244950212538242,
+            "requan_zp_a": 0.22516415361315012,
+            "requan_scale_b": 0.010477512143552303,
+            "requan_zp_b": 1.3411215543746948,
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 100.65387542634681,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_39",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_40": {
+      "layer_index": 25,
+      "name": "Conv_40",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            128,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.009935037232935429,
+         "input_zero_point1": 128.0,
+         "output_scale": 249.3330823922365,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_38_1",
+         "constant_551"
+      ],
+      "next_layer": [
+         "Conv_42"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_40_input_activation1.npy",
+         "input_activation2": "Conv_40_input_activation2.npy",
+         "output_activation1": "Conv_40_output_activation1.npy",
+         "k": "Conv_40_k.npy",
+         "b": "Conv_40_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_41"
+   },
+   "Conv_42": {
+      "layer_index": 26,
+      "name": "Conv_42",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            128,
+            128,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.004010699223726988,
+         "input_zero_point1": 128.0,
+         "output_scale": 319.193958589638,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_40",
+         "constant_554"
+      ],
+      "next_layer": [
+         "Conv_44"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_42_input_activation1.npy",
+         "input_activation2": "Conv_42_input_activation2.npy",
+         "output_activation1": "Conv_42_output_activation1.npy",
+         "k": "Conv_42_k.npy",
+         "b": "Conv_42_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_43"
+   },
+   "Conv_44": {
+      "layer_index": 27,
+      "name": "Conv_44",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            512,
+            128,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0031328913755714893,
+         "input_zero_point1": 128.0,
+         "output_scale": 85.62561111633441,
+         "output_zero_point": 14.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_42",
+         "constant_557"
+      ],
+      "next_layer": [
+         "Add_45_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_44_input_activation1.npy",
+         "input_activation2": "Conv_44_input_activation2.npy",
+         "output_activation1": "Conv_44_output_activation1.npy",
+         "k": "Conv_44_k.npy",
+         "b": "Conv_44_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_20"
+   },
+   "Add_45_1": {
+      "layer_index": 28,
+      "name": "Add_45_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_45_1_input_activation1.npy",
+         "input_activation2": "Add_45_1_input_activation2.npy",
+         "output_activation1": "Add_45_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_44",
+         "Add_38_1"
+      ],
+      "next_layer": [
+         "Conv_47",
+         "Add_52_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.01167874876409769,
+            "requan_zp_a": -0.16350248269736767,
+            "requan_scale_b": 0.009935037232935429,
+            "requan_zp_b": 1.2716847658157349,
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 117.33739443105655,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_46",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_47": {
+      "layer_index": 29,
+      "name": "Conv_47",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            128,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.008522432297468185,
+         "input_zero_point1": 128.0,
+         "output_scale": 301.977832478719,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_45_1",
+         "constant_560"
+      ],
+      "next_layer": [
+         "Conv_49"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_47_input_activation1.npy",
+         "input_activation2": "Conv_47_input_activation2.npy",
+         "output_activation1": "Conv_47_output_activation1.npy",
+         "k": "Conv_47_k.npy",
+         "b": "Conv_47_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_48"
+   },
+   "Conv_49": {
+      "layer_index": 30,
+      "name": "Conv_49",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            128,
+            128,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0033115013502538204,
+         "input_zero_point1": 128.0,
+         "output_scale": 324.0551228374437,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_47",
+         "constant_563"
+      ],
+      "next_layer": [
+         "Conv_51"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_49_input_activation1.npy",
+         "input_activation2": "Conv_49_input_activation2.npy",
+         "output_activation1": "Conv_49_output_activation1.npy",
+         "k": "Conv_49_k.npy",
+         "b": "Conv_49_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_50"
+   },
+   "Conv_51": {
+      "layer_index": 31,
+      "name": "Conv_51",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            128,
+            28,
+            28
+         ],
+         [
+            512,
+            128,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0030858947429805994,
+         "input_zero_point1": 128.0,
+         "output_scale": 154.50156215039033,
+         "output_zero_point": 5.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_49",
+         "constant_566"
+      ],
+      "next_layer": [
+         "Add_52_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_51_input_activation1.npy",
+         "input_activation2": "Conv_51_input_activation2.npy",
+         "output_activation1": "Conv_51_output_activation1.npy",
+         "k": "Conv_51_k.npy",
+         "b": "Conv_51_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_23"
+   },
+   "Add_52_1": {
+      "layer_index": 32,
+      "name": "Add_52_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_52_1_input_activation1.npy",
+         "input_activation2": "Add_52_1_input_activation2.npy",
+         "output_activation1": "Add_52_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_51",
+         "Add_45_1"
+      ],
+      "next_layer": [
+         "Conv_54",
+         "Conv_59"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.00647242646664381,
+            "requan_zp_a": -0.03236213233321905,
+            "requan_scale_b": 0.008522432297468185,
+            "requan_zp_b": 1.0908713340759277,
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ],
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 121.18199863394824,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  512,
+                  28,
+                  28
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_53",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_54": {
+      "layer_index": 33,
+      "name": "Conv_54",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            256,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            28,
+            28
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.00825205072760582,
+         "input_zero_point1": 128.0,
+         "output_scale": 169.46559794546945,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_52_1",
+         "constant_569"
+      ],
+      "next_layer": [
+         "Conv_56"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_54_input_activation1.npy",
+         "input_activation2": "Conv_54_input_activation2.npy",
+         "output_activation1": "Conv_54_output_activation1.npy",
+         "k": "Conv_54_k.npy",
+         "b": "Conv_54_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_55"
+   },
+   "Conv_59": {
+      "layer_index": 34,
+      "name": "Conv_59",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            28,
+            28
+         ],
+         [
+            1024,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.00825205072760582,
+         "input_zero_point1": 128.0,
+         "output_scale": 123.4934204389809,
+         "output_zero_point": -4.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_52_1",
+         "constant_578"
+      ],
+      "next_layer": [
+         "Add_60_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_59_input_activation1.npy",
+         "input_activation2": "Conv_59_input_activation2.npy",
+         "output_activation1": "Conv_59_output_activation1.npy",
+         "k": "Conv_59_k.npy",
+         "b": "Conv_59_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "fake_bn_27"
+   },
+   "Conv_56": {
+      "layer_index": 35,
+      "name": "Conv_56",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            28,
+            28
+         ],
+         [
+            256,
+            256,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.005900902673602104,
+         "input_zero_point1": 128.0,
+         "output_scale": 260.0161650768328,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_54",
+         "constant_572"
+      ],
+      "next_layer": [
+         "Conv_58"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_56_input_activation1.npy",
+         "input_activation2": "Conv_56_input_activation2.npy",
+         "output_activation1": "Conv_56_output_activation1.npy",
+         "k": "Conv_56_k.npy",
+         "b": "Conv_56_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "Relu_57"
+   },
+   "Conv_58": {
+      "layer_index": 36,
+      "name": "Conv_58",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            1024,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0038459147326648235,
+         "input_zero_point1": 128.0,
+         "output_scale": 124.33600005928803,
+         "output_zero_point": -1.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_56",
+         "constant_575"
+      ],
+      "next_layer": [
+         "Add_60_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_58_input_activation1.npy",
+         "input_activation2": "Conv_58_input_activation2.npy",
+         "output_activation1": "Conv_58_output_activation1.npy",
+         "k": "Conv_58_k.npy",
+         "b": "Conv_58_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_26"
+   },
+   "Add_60_1": {
+      "layer_index": 37,
+      "name": "Add_60_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_60_1_input_activation1.npy",
+         "input_activation2": "Add_60_1_input_activation2.npy",
+         "output_activation1": "Add_60_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_58",
+         "Conv_59"
+      ],
+      "next_layer": [
+         "Conv_62",
+         "Add_67_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.008042722940444946,
+            "requan_zp_a": 0.008042722940444946,
+            "requan_scale_b": 0.008097597397863865,
+            "requan_zp_b": 0.03239038959145546,
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 129.53207519082073,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_61",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_62": {
+      "layer_index": 38,
+      "name": "Conv_62",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            256,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.007720095571130514,
+         "input_zero_point1": 128.0,
+         "output_scale": 274.47821396465037,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_60_1",
+         "constant_581"
+      ],
+      "next_layer": [
+         "Conv_64"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_62_input_activation1.npy",
+         "input_activation2": "Conv_62_input_activation2.npy",
+         "output_activation1": "Conv_62_output_activation1.npy",
+         "k": "Conv_62_k.npy",
+         "b": "Conv_62_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_63"
+   },
+   "Conv_64": {
+      "layer_index": 39,
+      "name": "Conv_64",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            256,
+            256,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0036432764027267694,
+         "input_zero_point1": 128.0,
+         "output_scale": 291.9038505571396,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_62",
+         "constant_584"
+      ],
+      "next_layer": [
+         "Conv_66"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_64_input_activation1.npy",
+         "input_activation2": "Conv_64_input_activation2.npy",
+         "output_activation1": "Conv_64_output_activation1.npy",
+         "k": "Conv_64_k.npy",
+         "b": "Conv_64_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_65"
+   },
+   "Conv_66": {
+      "layer_index": 40,
+      "name": "Conv_66",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            1024,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0034257855731993914,
+         "input_zero_point1": 128.0,
+         "output_scale": 100.13201430684059,
+         "output_zero_point": -1.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_64",
+         "constant_587"
+      ],
+      "next_layer": [
+         "Add_67_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_66_input_activation1.npy",
+         "input_activation2": "Conv_66_input_activation2.npy",
+         "output_activation1": "Conv_66_output_activation1.npy",
+         "k": "Conv_66_k.npy",
+         "b": "Conv_66_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_30"
+   },
+   "Add_67_1": {
+      "layer_index": 41,
+      "name": "Add_67_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_67_1_input_activation1.npy",
+         "input_activation2": "Add_67_1_input_activation2.npy",
+         "output_activation1": "Add_67_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_66",
+         "Add_60_1"
+      ],
+      "next_layer": [
+         "Conv_69",
+         "Add_74_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.009986815974116325,
+            "requan_zp_a": 0.009986815974116325,
+            "requan_scale_b": 0.007720095571130514,
+            "requan_zp_b": 0.9881722331047058,
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 134.1322354664196,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_68",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_69": {
+      "layer_index": 42,
+      "name": "Conv_69",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            256,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0074553294107317924,
+         "input_zero_point1": 128.0,
+         "output_scale": 336.4035946505547,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_67_1",
+         "constant_590"
+      ],
+      "next_layer": [
+         "Conv_71"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_69_input_activation1.npy",
+         "input_activation2": "Conv_69_input_activation2.npy",
+         "output_activation1": "Conv_69_output_activation1.npy",
+         "k": "Conv_69_k.npy",
+         "b": "Conv_69_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_70"
+   },
+   "Conv_71": {
+      "layer_index": 43,
+      "name": "Conv_71",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            256,
+            256,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.002972619840875268,
+         "input_zero_point1": 128.0,
+         "output_scale": 332.58573602867926,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_69",
+         "constant_593"
+      ],
+      "next_layer": [
+         "Conv_73"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_71_input_activation1.npy",
+         "input_activation2": "Conv_71_input_activation2.npy",
+         "output_activation1": "Conv_71_output_activation1.npy",
+         "k": "Conv_71_k.npy",
+         "b": "Conv_71_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_72"
+   },
+   "Conv_73": {
+      "layer_index": 44,
+      "name": "Conv_73",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            1024,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.003006743500009179,
+         "input_zero_point1": 128.0,
+         "output_scale": 194.79892860227008,
+         "output_zero_point": -10.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_71",
+         "constant_596"
+      ],
+      "next_layer": [
+         "Add_74_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_73_input_activation1.npy",
+         "input_activation2": "Conv_73_input_activation2.npy",
+         "output_activation1": "Conv_73_output_activation1.npy",
+         "k": "Conv_73_k.npy",
+         "b": "Conv_73_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_33"
+   },
+   "Add_74_1": {
+      "layer_index": 45,
+      "name": "Add_74_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_74_1_input_activation1.npy",
+         "input_activation2": "Add_74_1_input_activation2.npy",
+         "output_activation1": "Add_74_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_73",
+         "Add_67_1"
+      ],
+      "next_layer": [
+         "Conv_76",
+         "Add_81_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.005133498460054398,
+            "requan_zp_a": 0.051334984600543976,
+            "requan_scale_b": 0.0074553294107317924,
+            "requan_zp_b": 0.9542821645736694,
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 136.91266556676663,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_75",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_76": {
+      "layer_index": 46,
+      "name": "Conv_76",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            256,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.007303926162421703,
+         "input_zero_point1": 128.0,
+         "output_scale": 343.6375755308341,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_74_1",
+         "constant_599"
+      ],
+      "next_layer": [
+         "Conv_78"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_76_input_activation1.npy",
+         "input_activation2": "Conv_76_input_activation2.npy",
+         "output_activation1": "Conv_76_output_activation1.npy",
+         "k": "Conv_76_k.npy",
+         "b": "Conv_76_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_77"
+   },
+   "Conv_78": {
+      "layer_index": 47,
+      "name": "Conv_78",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            256,
+            256,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0029100426472723484,
+         "input_zero_point1": 128.0,
+         "output_scale": 388.72696750290214,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_76",
+         "constant_602"
+      ],
+      "next_layer": [
+         "Conv_80"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_78_input_activation1.npy",
+         "input_activation2": "Conv_78_input_activation2.npy",
+         "output_activation1": "Conv_78_output_activation1.npy",
+         "k": "Conv_78_k.npy",
+         "b": "Conv_78_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_79"
+   },
+   "Conv_80": {
+      "layer_index": 48,
+      "name": "Conv_80",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            1024,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.002572499681264162,
+         "input_zero_point1": 128.0,
+         "output_scale": 127.64676000038993,
+         "output_zero_point": 13.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_78",
+         "constant_605"
+      ],
+      "next_layer": [
+         "Add_81_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_80_input_activation1.npy",
+         "input_activation2": "Conv_80_input_activation2.npy",
+         "output_activation1": "Conv_80_output_activation1.npy",
+         "k": "Conv_80_k.npy",
+         "b": "Conv_80_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_36"
+   },
+   "Add_81_1": {
+      "layer_index": 49,
+      "name": "Add_81_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_81_1_input_activation1.npy",
+         "input_activation2": "Add_81_1_input_activation2.npy",
+         "output_activation1": "Add_81_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_80",
+         "Add_74_1"
+      ],
+      "next_layer": [
+         "Conv_83",
+         "Add_88_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.007834119722247124,
+            "requan_zp_a": -0.10184355638921261,
+            "requan_scale_b": 0.007303926162421703,
+            "requan_zp_b": 0.934902548789978,
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 115.47416381012687,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_82",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_83": {
+      "layer_index": 50,
+      "name": "Conv_83",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            256,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.00865994580090046,
+         "input_zero_point1": 128.0,
+         "output_scale": 438.6738747954968,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_81_1",
+         "constant_608"
+      ],
+      "next_layer": [
+         "Conv_85"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_83_input_activation1.npy",
+         "input_activation2": "Conv_83_input_activation2.npy",
+         "output_activation1": "Conv_83_output_activation1.npy",
+         "k": "Conv_83_k.npy",
+         "b": "Conv_83_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_84"
+   },
+   "Conv_85": {
+      "layer_index": 51,
+      "name": "Conv_85",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            256,
+            256,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0022795978002250195,
+         "input_zero_point1": 128.0,
+         "output_scale": 475.65247624128244,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_83",
+         "constant_611"
+      ],
+      "next_layer": [
+         "Conv_87"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_85_input_activation1.npy",
+         "input_activation2": "Conv_85_input_activation2.npy",
+         "output_activation1": "Conv_85_output_activation1.npy",
+         "k": "Conv_85_k.npy",
+         "b": "Conv_85_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_86"
+   },
+   "Conv_87": {
+      "layer_index": 52,
+      "name": "Conv_87",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            1024,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0021023752633482218,
+         "input_zero_point1": 128.0,
+         "output_scale": 175.92624525804501,
+         "output_zero_point": -10.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_85",
+         "constant_614"
+      ],
+      "next_layer": [
+         "Add_88_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_87_input_activation1.npy",
+         "input_activation2": "Conv_87_input_activation2.npy",
+         "output_activation1": "Conv_87_output_activation1.npy",
+         "k": "Conv_87_k.npy",
+         "b": "Conv_87_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_39"
+   },
+   "Add_88_1": {
+      "layer_index": 53,
+      "name": "Add_88_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_88_1_input_activation1.npy",
+         "input_activation2": "Add_88_1_input_activation2.npy",
+         "output_activation1": "Add_88_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_87",
+         "Add_81_1"
+      ],
+      "next_layer": [
+         "Conv_90",
+         "Add_95_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.005684200208634138,
+            "requan_zp_a": 0.05684200208634138,
+            "requan_scale_b": 0.00865994580090046,
+            "requan_zp_b": 1.1084730625152588,
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 115.77190599044792,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_89",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_90": {
+      "layer_index": 54,
+      "name": "Conv_90",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            256,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.008637674152851105,
+         "input_zero_point1": 128.0,
+         "output_scale": 212.66429722010244,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_88_1",
+         "constant_617"
+      ],
+      "next_layer": [
+         "Conv_92"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_90_input_activation1.npy",
+         "input_activation2": "Conv_90_input_activation2.npy",
+         "output_activation1": "Conv_90_output_activation1.npy",
+         "k": "Conv_90_k.npy",
+         "b": "Conv_90_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_91"
+   },
+   "Conv_92": {
+      "layer_index": 55,
+      "name": "Conv_92",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            256,
+            256,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.004702246747910976,
+         "input_zero_point1": 128.0,
+         "output_scale": 293.60317523143385,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_90",
+         "constant_620"
+      ],
+      "next_layer": [
+         "Conv_94"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_92_input_activation1.npy",
+         "input_activation2": "Conv_92_input_activation2.npy",
+         "output_activation1": "Conv_92_output_activation1.npy",
+         "k": "Conv_92_k.npy",
+         "b": "Conv_92_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_93"
+   },
+   "Conv_94": {
+      "layer_index": 56,
+      "name": "Conv_94",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            256,
+            14,
+            14
+         ],
+         [
+            1024,
+            256,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.003405957715585828,
+         "input_zero_point1": 128.0,
+         "output_scale": 165.63979352987144,
+         "output_zero_point": 23.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_92",
+         "constant_623"
+      ],
+      "next_layer": [
+         "Add_95_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_94_input_activation1.npy",
+         "input_activation2": "Conv_94_input_activation2.npy",
+         "output_activation1": "Conv_94_output_activation1.npy",
+         "k": "Conv_94_k.npy",
+         "b": "Conv_94_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_42"
+   },
+   "Add_95_1": {
+      "layer_index": 57,
+      "name": "Add_95_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_95_1_input_activation1.npy",
+         "input_activation2": "Add_95_1_input_activation2.npy",
+         "output_activation1": "Add_95_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_94",
+         "Add_88_1"
+      ],
+      "next_layer": [
+         "Conv_97",
+         "Conv_102"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.006037196610122919,
+            "requan_zp_a": -0.13885552203282714,
+            "requan_scale_b": 0.008637674152851105,
+            "requan_zp_b": 1.1056222915649414,
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ],
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 167.24020549013085,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  1024,
+                  14,
+                  14
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_96",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_97": {
+      "layer_index": 58,
+      "name": "Conv_97",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            512,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            14,
+            14
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.00597942341119051,
+         "input_zero_point1": 128.0,
+         "output_scale": 272.58275145410835,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_95_1",
+         "constant_626"
+      ],
+      "next_layer": [
+         "Conv_99"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_97_input_activation1.npy",
+         "input_activation2": "Conv_97_input_activation2.npy",
+         "output_activation1": "Conv_97_output_activation1.npy",
+         "k": "Conv_97_k.npy",
+         "b": "Conv_97_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_98"
+   },
+   "Conv_102": {
+      "layer_index": 59,
+      "name": "Conv_102",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            1024,
+            14,
+            14
+         ],
+         [
+            2048,
+            1024,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.00597942341119051,
+         "input_zero_point1": 128.0,
+         "output_scale": 50.679759348250734,
+         "output_zero_point": -22.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_95_1",
+         "constant_635"
+      ],
+      "next_layer": [
+         "Add_103_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_102_input_activation1.npy",
+         "input_activation2": "Conv_102_input_activation2.npy",
+         "output_activation1": "Conv_102_output_activation1.npy",
+         "k": "Conv_102_k.npy",
+         "b": "Conv_102_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "fake_bn_46"
+   },
+   "Conv_99": {
+      "layer_index": 60,
+      "name": "Conv_99",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            14,
+            14
+         ],
+         [
+            512,
+            512,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.003668610705062747,
+         "input_zero_point1": 128.0,
+         "output_scale": 286.289927317133,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_97",
+         "constant_629"
+      ],
+      "next_layer": [
+         "Conv_101"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_99_input_activation1.npy",
+         "input_activation2": "Conv_99_input_activation2.npy",
+         "output_activation1": "Conv_99_output_activation1.npy",
+         "k": "Conv_99_k.npy",
+         "b": "Conv_99_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         2,
+         2
+      ],
+      "ori_name": "Relu_100"
+   },
+   "Conv_101": {
+      "layer_index": 61,
+      "name": "Conv_101",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ],
+         [
+            2048,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.003492962568998337,
+         "input_zero_point1": 128.0,
+         "output_scale": 64.74113502459669,
+         "output_zero_point": -24.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_99",
+         "constant_632"
+      ],
+      "next_layer": [
+         "Add_103_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_101_input_activation1.npy",
+         "input_activation2": "Conv_101_input_activation2.npy",
+         "output_activation1": "Conv_101_output_activation1.npy",
+         "k": "Conv_101_k.npy",
+         "b": "Conv_101_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_45"
+   },
+   "Add_103_1": {
+      "layer_index": 62,
+      "name": "Add_103_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_103_1_input_activation1.npy",
+         "input_activation2": "Add_103_1_input_activation2.npy",
+         "output_activation1": "Add_103_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_101",
+         "Conv_102"
+      ],
+      "next_layer": [
+         "Conv_105",
+         "Add_110_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ],
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.015446130186319351,
+            "requan_zp_a": 0.37070712447166443,
+            "requan_scale_b": 0.01973174326121807,
+            "requan_zp_b": 0.43409835174679756,
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 48.282914899202495,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_104",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_105": {
+      "layer_index": 63,
+      "name": "Conv_105",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ],
+         [
+            512,
+            2048,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.02071125991642475,
+         "input_zero_point1": 128.0,
+         "output_scale": 498.49606202522097,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_103_1",
+         "constant_638"
+      ],
+      "next_layer": [
+         "Conv_107"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_105_input_activation1.npy",
+         "input_activation2": "Conv_105_input_activation2.npy",
+         "output_activation1": "Conv_105_output_activation1.npy",
+         "k": "Conv_105_k.npy",
+         "b": "Conv_105_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_106"
+   },
+   "Conv_107": {
+      "layer_index": 64,
+      "name": "Conv_107",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ],
+         [
+            512,
+            512,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0020060339011251926,
+         "input_zero_point1": 128.0,
+         "output_scale": 498.242888239151,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_105",
+         "constant_641"
+      ],
+      "next_layer": [
+         "Conv_109"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_107_input_activation1.npy",
+         "input_activation2": "Conv_107_input_activation2.npy",
+         "output_activation1": "Conv_107_output_activation1.npy",
+         "k": "Conv_107_k.npy",
+         "b": "Conv_107_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_108"
+   },
+   "Conv_109": {
+      "layer_index": 65,
+      "name": "Conv_109",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ],
+         [
+            2048,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0020070532336831093,
+         "input_zero_point1": 128.0,
+         "output_scale": 81.32985101318262,
+         "output_zero_point": -9.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_107",
+         "constant_644"
+      ],
+      "next_layer": [
+         "Add_110_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_109_input_activation1.npy",
+         "input_activation2": "Conv_109_input_activation2.npy",
+         "output_activation1": "Conv_109_output_activation1.npy",
+         "k": "Conv_109_k.npy",
+         "b": "Conv_109_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_49"
+   },
+   "Add_110_1": {
+      "layer_index": 66,
+      "name": "Add_110_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_110_1_input_activation1.npy",
+         "input_activation2": "Add_110_1_input_activation2.npy",
+         "output_activation1": "Add_110_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_109",
+         "Add_103_1"
+      ],
+      "next_layer": [
+         "Conv_112",
+         "Add_117_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ],
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.012295608408749104,
+            "requan_zp_a": 0.11066047567874193,
+            "requan_scale_b": 0.02071125991642475,
+            "requan_zp_b": 2.651041269302368,
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 44.208952596195914,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_111",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Conv_112": {
+      "layer_index": 67,
+      "name": "Conv_112",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ],
+         [
+            512,
+            2048,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.022619852796196938,
+         "input_zero_point1": 128.0,
+         "output_scale": 466.8189514503507,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Add_110_1",
+         "constant_647"
+      ],
+      "next_layer": [
+         "Conv_114"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_112_input_activation1.npy",
+         "input_activation2": "Conv_112_input_activation2.npy",
+         "output_activation1": "Conv_112_output_activation1.npy",
+         "k": "Conv_112_k.npy",
+         "b": "Conv_112_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_113"
+   },
+   "Conv_114": {
+      "layer_index": 68,
+      "name": "Conv_114",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ],
+         [
+            512,
+            512,
+            3,
+            3
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.002142158104106784,
+         "input_zero_point1": 128.0,
+         "output_scale": 706.2730094028758,
+         "output_zero_point": -128.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_112",
+         "constant_650"
+      ],
+      "next_layer": [
+         "Conv_116"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_114_input_activation1.npy",
+         "input_activation2": "Conv_114_input_activation2.npy",
+         "output_activation1": "Conv_114_output_activation1.npy",
+         "k": "Conv_114_k.npy",
+         "b": "Conv_114_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": "relu",
+      "activation_attr": null,
+      "kernel_size": [
+         3,
+         3
+      ],
+      "padding": [
+         1,
+         1,
+         1,
+         1
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "Relu_115"
+   },
+   "Conv_116": {
+      "layer_index": 69,
+      "name": "Conv_116",
+      "operation": "conv2d",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "input_shape": [
+         [
+            4,
+            512,
+            7,
+            7
+         ],
+         [
+            2048,
+            512,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.0014158830745145679,
+         "input_zero_point1": 128.0,
+         "output_scale": 41.85460579580098,
+         "output_zero_point": 13.0,
+         "round_type": "round"
+      },
+      "previous_layer": [
+         "Conv_114",
+         "constant_653"
+      ],
+      "next_layer": [
+         "Add_117_1"
+      ],
+      "file_list": {
+         "input_activation1": "Conv_116_input_activation1.npy",
+         "input_activation2": "Conv_116_input_activation2.npy",
+         "output_activation1": "Conv_116_output_activation1.npy",
+         "k": "Conv_116_k.npy",
+         "b": "Conv_116_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null,
+      "kernel_size": [
+         1,
+         1
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ori_name": "fake_bn_52"
+   },
+   "Add_117_1": {
+      "layer_index": 70,
+      "name": "Add_117_1",
+      "operation": "element_wise_add",
+      "device": "npu",
+      "file_list": {
+         "input_activation1": "Add_117_1_input_activation1.npy",
+         "input_activation2": "Add_117_1_input_activation2.npy",
+         "output_activation1": "Add_117_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Conv_116",
+         "Add_110_1"
+      ],
+      "next_layer": [
+         "GlobalAveragePool_119_1"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ],
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor_mode": 0,
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.0238922331482172,
+            "requan_zp_a": -0.3105990309268236,
+            "requan_scale_b": 0.022619852796196938,
+            "requan_zp_b": 2.895341157913208,
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "fp32_sum_sub_group0": {
+            "sumsub_group_mode": "add",
+            "sumsub_group_b_mux": "vector",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "relu_group": {
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 34.20057491166231,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         }
+      },
+      "ori_name": "Relu_118",
+      "input_batchdim": [
+         0,
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "GlobalAveragePool_119_1": {
+      "layer_index": 71,
+      "name": "GlobalAveragePool_119_1",
+      "operation": "avg_pool2d",
+      "device": "npu",
+      "pool_size": [
+         7,
+         7
+      ],
+      "padding": [
+         0,
+         0,
+         0,
+         0
+      ],
+      "stride": [
+         1,
+         1
+      ],
+      "ceil_mode": false,
+      "file_list": {
+         "input_activation1": "GlobalAveragePool_119_1_input_activation1.npy",
+         "input_activation2": "GlobalAveragePool_119_1_input_activation2.npy",
+         "output_activation1": "GlobalAveragePool_119_1_output_activation1.npy"
+      },
+      "previous_layer": [
+         "Add_117_1",
+         "GlobalAveragePool_119_1_constant1"
+      ],
+      "next_layer": [
+         "Gemm_121"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            7,
+            7
+         ],
+         [
+            1,
+            1,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            2048,
+            1,
+            1
+         ]
+      ],
+      "input_dtype": [
+         "int8",
+         "float32"
+      ],
+      "output_dtype": [
+         "int8"
+      ],
+      "tensor0_lut": [
+         1,
+         1,
+         1
+      ],
+      "tensor1_lut": [
+         0,
+         0,
+         0
+      ],
+      "module_list": {
+         "pre_cal": {
+            "requan_scale_a": 0.029239274561405182,
+            "requan_zp_a": 3.7426271438598633,
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  1,
+                  1,
+                  1,
+                  1
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  1,
+                  1,
+                  1,
+                  1
+               ]
+            ],
+            "requan_scale_b": 1,
+            "requan_zp_b": 0
+         },
+         "fp32_mul_group": {
+            "mul_group_k_mux": "scalar",
+            "act_mode": "others",
+            "mul_group_k_scalar": 0.020408162847161293,
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ],
+               [
+                  1,
+                  1,
+                  1,
+                  1
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ]
+         },
+         "acc_tree_group": {
+            "acc_tree_mode": "acc",
+            "acc_dim": "kernel",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  7,
+                  7
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  1,
+                  1
+               ]
+            ]
+         },
+         "post_cal": {
+            "mul_k": 63.559871457431406,
+            "sum_b": -128.0,
+            "sumsub_mode": "add",
+            "carry_sel": "round",
+            "input_shape": [
+               [
+                  4,
+                  2048,
+                  1,
+                  1
+               ]
+            ],
+            "output_shape": [
+               [
+                  4,
+                  2048,
+                  1,
+                  1
+               ]
+            ]
+         }
+      },
+      "ori_name": "GlobalAveragePool_119",
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ]
+   },
+   "Gemm_121": {
+      "layer_index": 72,
+      "name": "Gemm_121",
+      "operation": "dense",
+      "device": "npu",
+      "input_dtype": [
+         "int8",
+         "int8"
+      ],
+      "output_dtype": [
+         "float16"
+      ],
+      "input_shape": [
+         [
+            4,
+            2048,
+            1,
+            1
+         ],
+         [
+            1000,
+            2048,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1000,
+            1,
+            1
+         ]
+      ],
+      "quant_info": {
+         "input_scale1": 0.015733197331428528,
+         "input_zero_point1": 128.0
+      },
+      "previous_layer": [
+         "GlobalAveragePool_119_1",
+         "constant_fc.weight"
+      ],
+      "next_layer": [
+         "Gemm_121_reshape_output0"
+      ],
+      "file_list": {
+         "input_activation1": "Gemm_121_input_activation1.npy",
+         "input_activation2": "Gemm_121_input_activation2.npy",
+         "output_activation1": "Gemm_121_output_activation1.npy",
+         "k": "Gemm_121_k.npy",
+         "b": "Gemm_121_b.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "activation_type": null,
+      "activation_attr": null
+   },
+   "Gemm_121_reshape_output0": {
+      "layer_index": 73,
+      "name": "Gemm_121_reshape_output0",
+      "operation": "reshape",
+      "device": "cpu",
+      "input_dtype": [
+         "float16"
+      ],
+      "output_dtype": [
+         "float16"
+      ],
+      "input_shape": [
+         [
+            4,
+            1000,
+            1,
+            1
+         ]
+      ],
+      "output_shape": [
+         [
+            4,
+            1000
+         ]
+      ],
+      "previous_layer": [
+         "Gemm_121"
+      ],
+      "next_layer": [
+         "output1"
+      ],
+      "file_list": {
+         "input_activation1": "Gemm_121_reshape_output0_input_activation1.npy",
+         "output_activation1": "Gemm_121_reshape_output0_output_activation1.npy"
+      },
+      "input_batchdim": [
+         0
+      ],
+      "output_batchdim": [
+         0
+      ],
+      "ori_name": "Gemm_121",
+      "nhwc_consistant": true
+   }
+}
